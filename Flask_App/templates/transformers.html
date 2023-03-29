@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+
+<h1>Summarizer</h1>
+<div class="col">
+    <form action="#" method="post">
+        <label for="input_text">Input Text:</label>
+        <input type="text" id="input_text" name="inputText"><br><br>
+        <button type="submit">Summarize</button>
+    </form>
+</div>
+
+<div class="col">
+    {% if summary_text %}
+    <p>The output text is: {{ summary_text }}</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}

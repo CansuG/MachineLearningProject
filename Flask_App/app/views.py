@@ -1,7 +1,10 @@
 import os
 import cv2
+
 from app.face_recognition import faceRecognitionPipeline
-from flask import render_template, request
+from app.transformers import get_summarizer
+
+from flask import render_template, request, jsonify
 import matplotlib.image as matimg
 
 
@@ -53,3 +56,20 @@ def genderapp():
     
     
     return render_template('gender.html',fileupload=False) # GET REQUEST
+
+def use_transformer():
+    summary_text = None
+    #input_text = request.get_json()["text"]
+    if request.method == 'POST':
+        input_text = request.form['inputText']
+        summary_text = get_summarizer(input_text)
+
+    #return jsonify({'summary': summary_text}) 
+
+        return render_template('transformers.html', summary_text = summary_text)
+    
+    return render_template('transformers.html')
+        
+
+    
+    
