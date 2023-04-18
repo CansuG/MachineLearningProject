@@ -9,17 +9,17 @@ def save_summarizer_model_as_pickle():
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     summarizer = pipeline("summarization", model=model, tokenizer=tokenizer)
 
-    pickle.dump(summarizer, open('./model/model_summarizer.pickle', mode='wb'))    
+    #pickle.dump(summarizer, open('./model/model_summarizer.pickle', mode='wb'))    
 
     return pickle.dumps(summarizer)
 
 def load_summarizer_pickle_to_redis():
     model_summarizer = save_summarizer_model_as_pickle()
     r = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
-    r.set('summarizer', model_summarizer)
+    r.set('summarizer', model_summarizer, ex=31536000)
 
 def get_summarizer(input_text):
-
+    
     # get pickle file from redis to summarize text
 
     r = redis.Redis(host='localhost', port=6379, db=0)

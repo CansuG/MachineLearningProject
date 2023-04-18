@@ -17,6 +17,7 @@ app.add_url_rule(rule='/app/gender/',
                  methods=['GET','POST'])
 app.add_url_rule(rule='/app/transformer/', endpoint='transformer',view_func=views.use_transformer, methods=['GET','POST'])
 
+
 if __name__ == "__main__":
     app.run(debug=True)
     
